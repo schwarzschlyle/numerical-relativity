@@ -5,7 +5,7 @@ import numpy as np
 
 
 
-i = 4
+i = 3
 
 
 # General parameters
@@ -20,7 +20,7 @@ precision_test = 30
 
 weight_inner = 10
 weight_outer = 100
-iterations = 500
+iterations = 1000
 learning_rate = 1e-3
 num_dense_layers = 3
 num_dense_nodes = 350
