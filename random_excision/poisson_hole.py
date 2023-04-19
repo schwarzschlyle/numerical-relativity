@@ -4,10 +4,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
+
+i = 4
+
+
 # General parameters
 n = 1
 length = 1
-R = 1 / 20
+R = 1 / i
 
 precision_train = 15
 precision_test = 30
@@ -116,9 +120,13 @@ model.compile(
 losshistory, train_state = model.train(iterations=iterations)
 # dde.saveplot(losshistory, train_state, issave=True, isplot=True)
 
+
+
 # Plot the solution over a square grid with 100 points per wavelength in each direction
 Nx = int(np.ceil(wave_len * 100))
 Ny = Nx
+
+
 
 # Grid points
 xmin, xmax, ymin, ymax = [-length / 2, length / 2, -length / 2, length / 2]
@@ -127,12 +135,21 @@ points = np.vstack(
     (plot_grid[0].ravel(), plot_grid[1].ravel(), np.zeros(plot_grid[0].size))
 )
 
+
+
+
 points_2d = points[:2, :]
 u = model.predict(points[:2, :].T)
 u = u.reshape((Nx, Ny))
 
+
+
+
+
 ide = np.sqrt(points_2d[0, :] ** 2 + points_2d[1, :] ** 2) < R
 ide = ide.reshape((Nx, Nx))
+
+
 
 u_exact = func(points.T)
 u_exact = u_exact.reshape((Nx, Ny))
@@ -182,4 +199,4 @@ fig.colorbar(pcm, ax=ax2)
 # nx, ny = inner.boundary_normal(p).T
 # ax1.quiver(px, py, nx, ny)
 # ax2.quiver(px, py, nx, ny)
-plt.savefig("plot_manufactured.pdf")
+plt.savefig(f"plot_manufactured_{i}.pdf")
